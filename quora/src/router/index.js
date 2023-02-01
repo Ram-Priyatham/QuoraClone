@@ -3,6 +3,10 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import ProfileAnotherPerson from "../components/ProfileAnotherPerson.vue";
+import AnswersPosted from "../components/AnswersPosted.vue";
+import FollowersComponent from "../components/FollowersComponent.vue";
+import FollowingComponent from "../components/FollowingComponent.vue";
+import QuestionsAsked from "../components/QuestionsAsked.vue";
 
 Vue.use(VueRouter);
 
@@ -16,6 +20,28 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: ProfileView,
+    children: [
+      {
+        path: "questions",
+        name: "questions",
+        component: QuestionsAsked,
+      },
+      {
+        path: "answers",
+        name: "answers",
+        component: AnswersPosted,
+      },
+      {
+        path: "followers",
+        name: "followers",
+        component: FollowersComponent,
+      },
+      {
+        path: "following",
+        name: "following",
+        component: FollowingComponent,
+      },
+    ],
   },
   {
     path: "/profileanother",

@@ -205,6 +205,8 @@ input {
 export default {
   methods: {
     goprofile() {
+      localStorage.setItem("email", "userone@gmail");
+      localStorage.setItem("name", "userOne");
       this.$router.push("/profile");
       console.log(this.$router);
     },

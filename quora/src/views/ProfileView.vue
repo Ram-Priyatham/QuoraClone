@@ -347,40 +347,35 @@ h4 {
         </div>
       </div>
     </header>
-    <main>
+    <div style="display: contents">
       <div class="statistics">
-        <router-link to="/questions">
+        <router-link to="/profile/questions">
           <div class="statistic">
             <p class="statistic-value">{{ questionsCount }}</p>
             <p class="statistic-label">Questions</p>
           </div>
         </router-link>
-        <div class="statistic">
-          <p class="statistic-value">{{ answersCount }}</p>
-          <p class="statistic-label">Answers</p>
-        </div>
-        <div class="statistic">
-          <p class="statistic-value">{{ followersCount }}</p>
-          <p class="statistic-label">Followers</p>
-        </div>
-        <div class="statistic">
-          <p class="statistic-value">{{ followingCount }}</p>
-          <p class="statistic-label">Following</p>
-        </div>
+        <router-link to="/profile/answers">
+          <div class="statistic">
+            <p class="statistic-value">{{ answersCount }}</p>
+            <p class="statistic-label">Answers</p>
+          </div>
+        </router-link>
+        <router-link to="/profile/followers">
+          <div class="statistic">
+            <p class="statistic-value">{{ followersCount }}</p>
+            <p class="statistic-label">Followers</p>
+          </div>
+        </router-link>
+        <router-link to="/profile/following">
+          <div class="statistic">
+            <p class="statistic-value">{{ followingCount }}</p>
+            <p class="statistic-label">Following</p>
+          </div>
+        </router-link>
       </div>
-      <div class="activity">
-        <h2 class="activity-title">Recent Activity</h2>
-        <ul class="activity-list">
-          <li
-            class="activity-item"
-            v-for="activity in recentActivity"
-            :key="activity.activityId"
-          >
-            {{ activity }}
-          </li>
-        </ul>
-      </div>
-    </main>
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -389,7 +384,7 @@ export default {
   data() {
     return {
       profileImage: "https://via.placeholder.com/150",
-      name: "Name ",
+      name: localStorage.getItem("name"),
       bio: "A sample bio about him",
       questionsCount: 15,
       answersCount: 20,
@@ -400,6 +395,7 @@ export default {
         "Answered a question about JavaScript",
         "Followed a new user",
       ],
+      userId: localStorage.getItem("userMail"),
     };
   },
 };
@@ -445,7 +441,9 @@ header {
   font-size: 16px;
   color: #333;
 }
-
+p {
+  color: black;
+}
 main {
   width: 100%;
   padding: 20px;
@@ -454,6 +452,7 @@ main {
 .statistics {
   display: flex;
   justify-content: space-between;
+  align-content: center;
   width: 100%;
   margin-bottom: 20px;
 }
@@ -461,7 +460,7 @@ main {
 .statistic {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   cursor: pointer;
   text-decoration: none;
 }
@@ -486,8 +485,7 @@ main {
   font-weight: bold;
   margin-bottom: 10px;
 }
-
-.activity-list {
+f .activity-list {
   list-style: none;
   padding: 0;
 }
