@@ -9,6 +9,7 @@ import FollowingComponent from "../components/FollowingComponent.vue";
 import QuestionsAsked from "../components/QuestionsAsked.vue";
 import UserRegistration from "../components/UserRegistration.vue";
 import UserLogin from "../components/UserLogin.vue";
+import QuestionDescription from "../views/QuestionDescription.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
     path: "/userregistration",
     name: "userregistration",
     component: UserRegistration,
+  },
+  {
+    path: "/questiondescription",
+    name: "questiondescription",
+    component: QuestionDescription,
   },
   {
     path: "/userlogin",

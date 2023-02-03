@@ -5,26 +5,27 @@
       <div class="main">
         <div class="sub">
           <div class="userDetails">
-            <p>Name:</p>
-            <!-- <p>{{ posts.questionId }}</p> -->
+            <p>Name: {{ posts.answerEntity.answerGiverName }}</p>
             <p>
-              Question:
               <b>{{ posts.answerEntity.questionBody }}</b>
             </p>
             <!-- <p>{{ posts.answerEntity.answerID }}</p> -->
             <p>
-              Answer:
-              <b>{{ posts.answerEntity.answerBody }}</b>
+              {{ posts.answerEntity.answerBody }}
             </p>
-            <br />
-            Description
-            <p />
-          </div>
-          <div class="question">
-            <h4>Sample Question</h4>
-          </div>
-          <div class="answer">
-            <p>Some random answer is generated here</p>
+            <div>
+              <i
+                class="fas fa-thumbs-up"
+                :style="{ color: upvoteColor }"
+                @click="changeUpvoteColor"
+              ></i>
+              <span style="visibility: hidden">R</span>
+              <i
+                class="fas fa-thumbs-down"
+                :style="{ color: downvoteColor }"
+                @click="changeDownvoteColor"
+              ></i>
+            </div>
           </div>
         </div>
       </div>
@@ -38,9 +39,18 @@ export default {
   data() {
     return {
       list: undefined,
+      upvoteColor: "#ccc",
+      downvoteColor: "#ccc",
     };
   },
-
+  methods: {
+    changeUpvoteColor() {
+      this.upvoteColor = this.upvoteColor === "#ccc" ? "#3f51b5" : "#ccc";
+    },
+    changeDownvoteColor() {
+      this.downvoteColor = this.downvoteColor === "#ccc" ? "#3f51b5" : "#ccc";
+    },
+  },
   async created() {
     await axios.get("/api/question/getPosts").then((res) => {
       this.list = res.data;
@@ -66,5 +76,11 @@ export default {
 }
 .sub {
   margin-left: 2%;
+  margin-right: 1.5%;
+}
+.fa-thumbs-up,
+.fa-thumbs-down {
+  font-size: 20px;
+  cursor: pointer;
 }
 </style>

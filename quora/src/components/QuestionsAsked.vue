@@ -3,6 +3,8 @@
     <div
       v-for="(question, index) in getQuestions.questionEntityList"
       :key="index"
+      @click="emitQuestion(question)"
+      style="cursor: pointer"
     >
       <!-- <p>{{ question }}</p> -->
       <div class="main">
@@ -29,6 +31,10 @@ export default {
   },
   methods: {
     ...mapActions(["getQuestionsApi"]),
+    emitQuestion(question) {
+      localStorage.setItem("questionID", question.questionId);
+      this.$router.push("/questiondescription");
+    },
   },
   created() {
     this.$store.dispatch("getQuestionsApi", {
