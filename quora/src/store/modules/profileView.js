@@ -89,12 +89,12 @@ export default {
         });
     },
     async REGISTER({ commit }, { payload }) {
-      const response = await axios.post("/api/auth/register", payload);
+      const response = await axios.post("/oauth/api/auth/register", payload);
       console.log(response);
       commit("setRegister", response);
     },
     async LOGIN({ commit }, { payload }) {
-      const response = await axios.post("/api/auth/login", payload);
+      const response = await axios.post("/oauth/api/auth/login", payload);
       console.log(response);
       commit("setLogin", response);
     },

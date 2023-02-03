@@ -3,8 +3,8 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     proxy: {
-      "^/api/auth": {
-        target: "http://10.20.5.40:8080", // http://192.168.156.50:8085/api/products/allProducts
+      "^/oauth/api/auth": {
+        target: "http://10.20.5.52:8080", // http://192.168.156.50:8085/api/products/allProducts
         changeOrigin: true,
         // pathRewrite: { "^/api": "" },
       },

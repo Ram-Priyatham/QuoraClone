@@ -61,8 +61,11 @@ export default {
   max-width: 500px;
   margin: 0 auto;
   padding: 30px;
+  top: 200px;
+  height: 500px;
   text-align: center;
   background-color: rgb(236, 241, 241);
+  border-radius: 10px;
 }
 
 h2 {
@@ -77,7 +80,9 @@ label {
   margin-bottom: 15px;
 }
 .bg {
-  /* display: flex; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url("https://qph.cf2.quoracdn.net/main-qimg-b5faebde65208b4e09af0a85b3893ddd-lq");
   width: 100%;
   height: 100vh;
