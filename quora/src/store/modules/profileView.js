@@ -93,10 +93,22 @@ export default {
       console.log(response);
       commit("setRegister", response);
     },
-    async LOGIN({ commit }, { payload }) {
-      const response = await axios.post("/oauth/api/auth/login", payload);
-      console.log(response);
-      commit("setLogin", response);
+    async LOGIN({ commit }, { payload, success }) {
+      await axios
+        .post("/oauth/api/auth/login", payload)
+        .then((response) => {
+          commit("setLogin", response);
+          console.log(response);
+          localStorage.setItem("email", response.data.userId);
+          if (response.statusText === "OK") {
+            success();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Invalid credentials");
+        });
+      // console.log("Status text is ", response.statusText);
     },
   },
 };

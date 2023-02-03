@@ -41,7 +41,7 @@
 export default {
   methods: {
     goprofile() {
-      localStorage.setItem("email", "63dc9b4ccfd535353bd2e883");
+      // localStorage.setItem("email", "63dc9b4ccfd535353bd2e883");
       localStorage.setItem("name", "user");
       this.$router.push("/profile");
       console.log(this.$router);

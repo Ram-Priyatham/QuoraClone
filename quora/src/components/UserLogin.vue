@@ -56,7 +56,13 @@ export default {
         username: this.username,
         password: this.password,
       };
-      this.$store.dispatch("LOGIN", { payload: payloadData });
+      this.$store.dispatch("LOGIN", {
+        payload: payloadData,
+        success: () => {
+          this.$router.push("/");
+          // localStorage.setItem("email",)
+        },
+      });
     },
   },
 };

@@ -59,8 +59,8 @@ export default {
     await axios.get("/api/question/getPosts").then((res) => {
       this.list = res.data;
     });
-    console.log(this.list);
-    console.log(JSON.stringify(this.list));
+    // console.log(this.list);
+    // console.log(JSON.stringify(this.list));
   },
 };
 </script>
