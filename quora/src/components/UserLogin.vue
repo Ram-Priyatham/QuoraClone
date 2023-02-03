@@ -26,6 +26,12 @@
           />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <hr class="my-4" />
+        <router-link
+          class="nav-link d-block text-center mt-2 small link-primary"
+          to="/userregistration"
+          >Don't have an account? Register !</router-link
+        >
       </form>
     </div>
   </div>
@@ -62,7 +68,7 @@ export default {
   margin: 0 auto;
   padding: 30px;
   top: 200px;
-  height: 500px;
+  height: 530px;
   text-align: center;
   background-color: rgb(236, 241, 241);
   border-radius: 10px;

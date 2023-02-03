@@ -168,6 +168,7 @@ export default {
 .container {
   max-width: 500px;
   margin: 0 auto;
+  margin: 3%;
   padding: 30px;
   text-align: center;
   background-color: rgb(236, 241, 241);
@@ -185,6 +186,9 @@ label {
   margin-bottom: 15px;
 }
 .bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url("https://qph.cf2.quoracdn.net/main-qimg-b5faebde65208b4e09af0a85b3893ddd-lq");
 }
 .form-check-label {
