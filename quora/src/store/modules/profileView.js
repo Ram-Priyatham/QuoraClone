@@ -5,7 +5,8 @@ export default {
     followers: [],
     profile: [],
     following: [],
-    // answers: [],
+    answers: [],
+    questions: [],
     register: "",
     login: "",
   },
@@ -13,7 +14,8 @@ export default {
     getFollowing: (state) => state.following,
     getFollowers: (state) => state.followers,
     getProfile: (state) => state.profile,
-    // getAnswers: (state) => state.answers,
+    getAnswers: (state) => state.answers,
+    getQuestions: (state) => state.questions,
     getRegister: (state) => {
       return state.register;
     },
@@ -31,9 +33,12 @@ export default {
     setProfile: (state, value) => {
       state.profile = value;
     },
-    // setAnswers: (state, value) => {
-    //   state.answers = value;
-    // },
+    setAnswers: (state, value) => {
+      state.answers = value;
+    },
+    setQuestions: (state, value) => {
+      state.questions = value;
+    },
     setRegister: (state, value) => {
       state.register = value;
     },
@@ -64,6 +69,14 @@ export default {
         .then((res) => {
           console.log(res);
           commit("setAnswers", res);
+        });
+    },
+    getQuestionsApi: ({ commit }, { id }) => {
+      fetch(`/api/question/getQuestionByQuestionUserId/${id}`)
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res);
+          commit("setQuestions", res);
         });
     },
     getProfileApi: ({ commit }, { id }) => {

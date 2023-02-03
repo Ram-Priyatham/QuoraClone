@@ -1,6 +1,9 @@
 <template>
   <div style="display: flex; flex-direction: column-reverse">
-    <div v-for="(question, index) in list" :key="index">
+    <div
+      v-for="(question, index) in getQuestions.questionEntityList"
+      :key="index"
+    >
       <!-- <p>{{ question }}</p> -->
       <div class="main">
         <div class="sub">
@@ -12,56 +15,25 @@
         </div>
       </div>
     </div>
+    <!-- {{ getQuestions }} -->
   </div>
 </template>
 <script>
-import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "HomeView",
   data() {
-    return {
-      list: undefined,
-      numberOfQuestions: 0,
-      answersList: [],
-    };
+    return {};
   },
-  async created() {
-    localStorage.setItem("userId", "publicuser@gmail.com");
-    await axios
-      .get(
-        "http://10.20.3.153:8087/question/getQuestionByQuestionUserId/" +
-          localStorage.getItem("userId")
-      )
-      .then((res) => {
-        this.list = res.data;
-        this.numberOfQuestions = res.data.noOfQuestionAsked;
-        for (let i = 0; i < this.numberOfQuestions; i++) {
-          this.answersList.push([]);
-        }
-        this.list = this.list.questionEntityList;
-        this.getAnswers();
-      });
+  computed: {
+    ...mapGetters(["getQuestions"]),
   },
-
   methods: {
-    async getAnswers() {
-      let i = 0;
-      for (i = 0; i < this.numberOfQuestions; i++) {
-        const currentIndex = i;
-        await axios
-          .get(
-            "http://10.20.3.153:8087/answer/getListOfAnswersWithQuestionId/" +
-              this.list[currentIndex].questionId
-          )
-          .then((resp) => {
-            //console.log(resp);
-            const answersListClone = structuredClone(this.answersList);
-            console.log(currentIndex);
-            answersListClone[currentIndex] = resp.data;
-            this.answersList = answersListClone;
-          });
-      }
-    },
+    ...mapActions(["getQuestionsApi"]),
+  },
+  created() {
+    this.$store.dispatch("getQuestionsApi", {
+      id: localStorage.getItem("email"),
+    });
   },
 };
 </script>

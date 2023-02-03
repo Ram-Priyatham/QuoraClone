@@ -13,7 +13,7 @@ export default {
     ...mapGetters(["getAnswers"]),
   },
   methods: {
-    ...mapActions(["getAnswers"]),
+    ...mapActions(["getAnswersApi"]),
   },
   created() {
     this.$store.dispatch("getAnswersApi", {
