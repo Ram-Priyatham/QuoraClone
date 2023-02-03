@@ -42,7 +42,7 @@ export default {
   },
 
   async created() {
-    await axios.get("http://10.20.3.153:8087/question/getPosts").then((res) => {
+    await axios.get("/api/question/getPosts").then((res) => {
       this.list = res.data;
     });
     console.log(this.list);
