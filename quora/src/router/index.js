@@ -10,6 +10,7 @@ import QuestionsAsked from "../components/QuestionsAsked.vue";
 import UserRegistration from "../components/UserRegistration.vue";
 import UserLogin from "../components/UserLogin.vue";
 import QuestionDescription from "../views/QuestionDescription.vue";
+import PostDescription from "../views/PostDescription.vue";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
     path: "/userregistration",
     name: "userregistration",
     component: UserRegistration,
+  },
+  {
+    path: "/postdescription",
+    name: "postdescription",
+    component: PostDescription,
   },
   {
     path: "/questiondescription",

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(posts, index) in list" :key="index">
+    <div v-for="(posts, index) in list" :key="index" @click="emitPost(posts)">
       <!-- <p>{{ posts.answerEntity.answerID }}</p> -->
       <div class="main">
         <div class="sub">
@@ -49,6 +49,10 @@ export default {
     },
     changeDownvoteColor() {
       this.downvoteColor = this.downvoteColor === "#ccc" ? "#3f51b5" : "#ccc";
+    },
+    emitPost(posts) {
+      localStorage.setItem("questionID", posts.questionId);
+      this.$router.push("/postDescription");
     },
   },
   async created() {
