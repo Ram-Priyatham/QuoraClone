@@ -1,6 +1,14 @@
 <template>
-  <div>
-    {{ getAnswers }}
+  <div style="display: flex; flex-direction: column-reverse">
+    <div v-for="answers in getAnswers" :key="answers.answerId">
+      <div class="main">
+        <div class="sub">
+          <b>{{ answers.questionBody }}</b> <br />
+          <p style="padding-top: 6px">{{ answers.answerBody }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- {{ getAnswers }} -->
   </div>
 </template>
 <script>
@@ -27,7 +35,7 @@ export default {
 .main {
   display: flex;
   /* justify-content: center; */
-  flex-direction: row;
+  flex-direction: column;
   text-align: left;
   border: 1.4px #ced5da solid;
   margin-top: 10px;
@@ -39,5 +47,6 @@ export default {
 }
 .sub {
   margin-left: 2%;
+  padding-top: 4px;
 }
 </style>
