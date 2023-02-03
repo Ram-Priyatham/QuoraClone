@@ -1,10 +1,16 @@
 <template>
   <div>
     In Followers Component
-    <div v-for="follower in getFollowers" :key="follower.userId">
+    <div
+      v-for="follower in getFollowers"
+      :key="follower.userId"
+      style="justify-content: left; display: flex; flex-direction: column"
+    >
+      <img :src="follower.img" style="width: 50px" />
       <p>{{ follower.userName }}</p>
     </div>
-    {{ getFollowers }}
+    <p>Total no of followers are {{ getFollowers.length }}</p>
+    <!-- {{ getFollowers }} -->
   </div>
 </template>
 <script>
@@ -27,3 +33,4 @@ export default {
   },
 };
 </script>
+<style></style>

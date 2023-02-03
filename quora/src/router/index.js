@@ -7,6 +7,8 @@ import AnswersPosted from "../components/AnswersPosted.vue";
 import FollowersComponent from "../components/FollowersComponent.vue";
 import FollowingComponent from "../components/FollowingComponent.vue";
 import QuestionsAsked from "../components/QuestionsAsked.vue";
+import UserRegistration from "../components/UserRegistration.vue";
+import UserLogin from "../components/UserLogin.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +17,16 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/userregistration",
+    name: "userregistration",
+    component: UserRegistration,
+  },
+  {
+    path: "/userlogin",
+    name: "userlogin",
+    component: UserLogin,
   },
   {
     path: "/profile",

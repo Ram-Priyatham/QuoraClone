@@ -184,7 +184,9 @@ input {
     </div>
     <div class="right-section">
       <ul class="nav-links">
-        <li class="nav-link"><a href="#">Home</a></li>
+        <router-link to="/" style="text-decoration: none; color: inherit">
+          <li class="nav-link">Home</li></router-link
+        >
         <li class="nav-link"><a href="#">Topics</a></li>
         <li class="nav-link"><a href="#">Notifications</a></li>
         <li class="nav-link"><a href="#">Messages</a></li>
@@ -199,14 +201,15 @@ input {
         />
       </div>
     </div>
+    <!-- <router-view /> -->
   </nav>
 </template>
 <script>
 export default {
   methods: {
     goprofile() {
-      localStorage.setItem("email", "userone@gmail");
-      localStorage.setItem("name", "userOne");
+      localStorage.setItem("email", "userone@gmail.com");
+      localStorage.setItem("name", "user");
       this.$router.push("/profile");
       console.log(this.$router);
     },
