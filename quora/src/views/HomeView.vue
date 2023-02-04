@@ -12,19 +12,6 @@
                 style="width: 50px; padding-top: 10px"
               />
               <b>{{ posts.answerEntity.answerGiverName }}</b>
-
-              <!-- <router-link
-                to="/answerquestion"
-                style="
-                  float: right;
-                  text-decoration: none;
-                  color: inherit;
-                  padding-top: 10px;
-                  padding-right: 10px;
-                "
-                >Answer This</router-link
-              > -->
-              <!-- <a style="float: right">Answer This</a> -->
             </p>
             <p>
               <b>{{ posts.answerEntity.questionBody }}</b>

@@ -1,10 +1,11 @@
 <template>
   <div>
     <p>
+      <br />
       <b>{{ list[0].questionBody }}</b>
     </p>
     <div>
-      <button @click="showInput = true">Answer This</button>
+      <button class="answerThis" @click="showInput = true">Answer This</button>
       <center>
         <div v-if="showInput" style="align-items: center">
           <textarea
@@ -13,7 +14,7 @@
             v-model="inputValue"
             style="width: 350px; height: 150px"
           />
-          <button @click="submitInput">Submit</button>
+          <button class="answerThis" @click="submitInput">Submit</button>
         </div>
       </center>
     </div>
@@ -108,5 +109,15 @@ export default {
 }
 .sub {
   margin-left: 2%;
+}
+.answerThis {
+  background-color: #b92b28;
+  color: #fff;
+  /* padding: 10px 20px; */
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  height: 30px;
 }
 </style>
