@@ -59,14 +59,21 @@ export default {
   },
   methods: {
     submitInput() {
-      const requestbody = {
-        answerBody: this.inputValue,
-        answerUserId: localStorage.getItem("email"),
-        questionId: localStorage.getItem("questionID"),
-      };
-      axios.post("/api/answer/addAnswer", requestbody);
+      // const requestbody = {
+      //   answerBody: this.inputValue,
+      //   answerUserId: localStorage.getItem("email"),
+      //   questionId: localStorage.getItem("questionID"),
+      // };
+      const params = `?answerBody=${
+        this.inputValue
+      }&answerUserId=${localStorage.getItem(
+        "email"
+      )}&questionId=${localStorage.getItem("questionID")}`;
+      // axios.post("/api/answer/addAnswer", requestbody);
+      axios.get("/api/answer/addAnswer1" + params);
       this.showInput = false;
       this.inputValue = "";
+      window.location.href = "/postDescription";
     },
   },
   async created() {
