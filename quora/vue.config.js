@@ -9,12 +9,12 @@ module.exports = defineConfig({
         // pathRewrite: { "^/api": "" },
       },
       "^/api/answer": {
-        target: "http://10.20.3.153:9009",
+        target: "http://10.20.3.153:8087",
         changeOrigin: true,
         pathRewrite: { "^/api": "" },
       },
       "^/api/question": {
-        target: "http://10.20.3.153:9009",
+        target: "http://10.20.3.153:8087",
         changeOrigin: true,
         pathRewrite: { "^/api": "" },
       },

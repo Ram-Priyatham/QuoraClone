@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- {{ list }} -->
+    {{ list }}
     <div v-for="(posts, index) in list" :key="index" @click="emitPost(posts)">
       <!-- <p>{{ posts.answerEntity.answerID }}</p> -->
       <div class="main">
@@ -12,6 +12,18 @@
                 style="width: 50px; padding-top: 10px"
               />
               <b>{{ posts.answerEntity.answerGiverName }}</b>
+              <router-link
+                to="/answerquestion"
+                style="
+                  float: right;
+                  text-decoration: none;
+                  color: inherit;
+                  padding-top: 10px;
+                  padding-right: 10px;
+                "
+                >Answer This</router-link
+              >
+              <!-- <a style="float: right">Answer This</a> -->
             </p>
             <p>
               <b>{{ posts.answerEntity.questionBody }}</b>
@@ -51,6 +63,7 @@
 <script>
 //import { createDecipheriv } from "crypto";
 import axios from "axios";
+// import AnswerQuestion from "@/components/AnswerQuestion.vue";
 export default {
   data() {
     return {
@@ -63,7 +76,9 @@ export default {
       isDisLiked: [],
     };
   },
-
+  // components: {
+  //   name: ["AnswerQuestion"],
+  // },
   async created() {
     await axios.get("/api/question/getPosts").then((res) => {
       this.list = res.data;

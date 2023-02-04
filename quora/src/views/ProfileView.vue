@@ -19,7 +19,7 @@
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
-            <!-- <p class="statistic-value">{{ questionsCount }}</p> -->
+            <p class="statistic-value">{{ questionsCount }}</p>
             <b><p class="statistic-label">Questions</p></b>
           </div>
         </router-link>
