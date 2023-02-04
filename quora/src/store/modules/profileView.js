@@ -9,6 +9,7 @@ export default {
     questions: [],
     register: "",
     login: "",
+    profileAnotherUser: [],
   },
   getters: {
     getFollowing: (state) => state.following,
@@ -16,6 +17,7 @@ export default {
     getProfile: (state) => state.profile,
     getAnswers: (state) => state.answers,
     getQuestions: (state) => state.questions,
+    getProfileAnotherUser: (state) => state.profileAnotherUser,
     getRegister: (state) => {
       return state.register;
     },
@@ -40,6 +42,9 @@ export default {
       state.questions = value;
     },
     setRegister: (state, value) => {
+      state.register = value;
+    },
+    getProfileAnotherUser: (state, value) => {
       state.register = value;
     },
     setLogin: (state, value) => {
@@ -86,6 +91,14 @@ export default {
         .then((res) => {
           console.log(res);
           commit("setProfile", res);
+        });
+    },
+    getProfileAnotherUserApi: ({ commit }, { id }) => {
+      fetch(`/api/User/findUserById/${id}`)
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res);
+          commit("setProfileAnotherUser", res);
         });
     },
     async REGISTER({ commit }, { payload }) {
