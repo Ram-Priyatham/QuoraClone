@@ -9,8 +9,13 @@
         />
       </router-link>
       <form class="search-form">
-        <input type="text" class="search-input" placeholder="Search Quora" />
-        <button type="submit" class="search-button">
+        <input
+          type="text"
+          class="search-input"
+          v-model="searchText"
+          placeholder="Search Quora"
+        />
+        <button type="submit" class="search-button" @click="submit">
           <i class="fa fa-search"></i>
         </button>
       </form>
@@ -48,6 +53,9 @@
 <script>
 export default {
   methods: {
+    submit() {
+      this.$router.push(`/search/${this.searchText}`);
+    },
     goprofile() {
       // localStorage.setItem("email", "63dc9b4ccfd535353bd2e883");
       localStorage.setItem("name", "user");

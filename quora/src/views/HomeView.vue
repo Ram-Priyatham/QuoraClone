@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ list }}
+    <!-- {{ list }} -->
     <div v-for="(posts, index) in list" :key="index" @click="emitPost(posts)">
       <!-- <p>{{ posts.answerEntity.answerID }}</p> -->
       <div class="main">

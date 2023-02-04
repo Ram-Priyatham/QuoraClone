@@ -13,6 +13,7 @@ import QuestionDescription from "../views/QuestionDescription.vue";
 import PostDescription from "../views/PostDescription.vue";
 import PostQuestion from "../components/PostQuestion.vue";
 import AnswerQuestion from "../components/AnswerQuestion.vue";
+import SearchView from "../views/SearchView.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/search/:searchText",
+    name: "search",
+    component: SearchView,
   },
   {
     path: "/userregistration",
