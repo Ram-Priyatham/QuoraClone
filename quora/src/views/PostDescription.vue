@@ -3,6 +3,20 @@
     <p>
       <b>{{ list[0].questionBody }}</b>
     </p>
+    <div>
+      <button @click="showInput = true">Answer This</button>
+      <center>
+        <div v-if="showInput" style="align-items: center">
+          <textarea
+            type="text"
+            class="form-control"
+            v-model="inputValue"
+            style="width: 350px; height: 150px"
+          />
+          <button @click="submitInput">Submit</button>
+        </div>
+      </center>
+    </div>
     <div v-for="(answer, index) in list" :key="index">
       <div class="main">
         <div class="sub">
@@ -39,7 +53,21 @@ export default {
   data() {
     return {
       list: undefined,
+      showInput: false,
+      inputValue: "",
     };
+  },
+  methods: {
+    submitInput() {
+      const requestbody = {
+        answerBody: this.inputValue,
+        answerUserId: localStorage.getItem("email"),
+        questionId: localStorage.getItem("questionID"),
+      };
+      axios.post("/api/answer/addAnswer", requestbody);
+      this.showInput = false;
+      this.inputValue = "";
+    },
   },
   async created() {
     await axios

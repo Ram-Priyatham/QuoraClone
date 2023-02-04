@@ -12,7 +12,8 @@
                 style="width: 50px; padding-top: 10px"
               />
               <b>{{ posts.answerEntity.answerGiverName }}</b>
-              <router-link
+
+              <!-- <router-link
                 to="/answerquestion"
                 style="
                   float: right;
@@ -22,7 +23,7 @@
                   padding-right: 10px;
                 "
                 >Answer This</router-link
-              >
+              > -->
               <!-- <a style="float: right">Answer This</a> -->
             </p>
             <p>
@@ -88,10 +89,6 @@ export default {
   },
 
   methods: {
-    //     async onUpVote(){
-    //         await axios.get("http://10.20.3.153:8081/answer/upvote"+this.list)
-
-    //     }
     emitPost(posts) {
       localStorage.setItem("questionID", posts.questionId);
       this.$router.push("/postDescription");
