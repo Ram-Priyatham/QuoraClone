@@ -20,16 +20,24 @@
         <router-link to="/" style="text-decoration: none; color: inherit">
           <li class="nav-link">Home</li></router-link
         >
-        <li class="nav-link"><a href="#">Topics</a></li>
+        <!-- <li class="nav-link"><a href="#">Topics</a></li>
         <li class="nav-link"><a href="#">Notifications</a></li>
-        <li class="nav-link"><a href="#">Messages</a></li>
+        <li class="nav-link"><a href="#">Messages</a></li> -->
       </ul>
       <div class="user-actions">
-        <button class="write-question-button">Write a Question</button>
+        <router-link
+          to="/postquestion"
+          style="text-decoration: none; color: inherit"
+        >
+          <button class="write-question-button">
+            Write a Question
+          </button></router-link
+        >
         <img
           src="../assets/user.png"
           alt="User Avatar"
           class="user-avatar"
+          style="padding-top: 7px"
           @click="goprofile()"
         />
       </div>

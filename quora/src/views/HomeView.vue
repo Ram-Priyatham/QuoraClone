@@ -1,11 +1,18 @@
 <template>
   <div>
+    <!-- {{ list }} -->
     <div v-for="(posts, index) in list" :key="index" @click="emitPost(posts)">
       <!-- <p>{{ posts.answerEntity.answerID }}</p> -->
       <div class="main">
         <div class="sub">
           <div class="userDetails">
-            <p>Name: {{ posts.answerEntity.answerGiverName }}</p>
+            <p>
+              <img
+                :src="posts.answerEntity.answerGiverImage"
+                style="width: 50px; padding-top: 10px"
+              />
+              <b>{{ posts.answerEntity.answerGiverName }}</b>
+            </p>
             <p>
               <b>{{ posts.answerEntity.questionBody }}</b>
             </p>
@@ -16,14 +23,22 @@
             <div>
               <i
                 class="fas fa-thumbs-up"
-                :style="{ color: upvoteColor }"
-                @click="changeUpvoteColor"
+                @click="emitUpVote(posts)"
+                :style="
+                  isLiked.includes(posts.answerEntity.answerID)
+                    ? 'background: blue;'
+                    : ''
+                "
               ></i>
               <span style="visibility: hidden">R</span>
               <i
                 class="fas fa-thumbs-down"
-                :style="{ color: downvoteColor }"
-                @click="changeDownvoteColor"
+                @click="emitDownVote(posts)"
+                :style="
+                  isDisLiked.includes(posts.answerEntity.answerID)
+                    ? 'background: blue;'
+                    : ''
+                "
               ></i>
             </div>
           </div>
@@ -32,6 +47,7 @@
     </div>
   </div>
 </template>
+
 <script>
 //import { createDecipheriv } from "crypto";
 import axios from "axios";
@@ -39,28 +55,95 @@ export default {
   data() {
     return {
       list: undefined,
-      upvoteColor: "#ccc",
-      downvoteColor: "#ccc",
+      list1: undefined,
+      list2: undefined,
+      response: undefined,
+      msg: "",
+      isLiked: [],
+      isDisLiked: [],
     };
   },
-  methods: {
-    changeUpvoteColor() {
-      this.upvoteColor = this.upvoteColor === "#ccc" ? "#3f51b5" : "#ccc";
-    },
-    changeDownvoteColor() {
-      this.downvoteColor = this.downvoteColor === "#ccc" ? "#3f51b5" : "#ccc";
-    },
-    emitPost(posts) {
-      localStorage.setItem("questionID", posts.questionId);
-      this.$router.push("/postDescription");
-    },
-  },
+
   async created() {
     await axios.get("/api/question/getPosts").then((res) => {
       this.list = res.data;
     });
     // console.log(this.list);
     // console.log(JSON.stringify(this.list));
+  },
+
+  methods: {
+    //     async onUpVote(){
+    //         await axios.get("http://10.20.3.153:8081/answer/upvote"+this.list)
+
+    //     }
+    emitPost(posts) {
+      localStorage.setItem("questionID", posts.questionId);
+      this.$router.push("/postDescription");
+    },
+    changeUpvoteColor() {
+      this.upvoteColor = this.upvoteColor === "#ccc" ? "#3f51b5" : "#ccc";
+    },
+    changeDownvoteColor() {
+      this.downvoteColor = this.downvoteColor === "#ccc" ? "#3f51b5" : "#ccc";
+    },
+    async fetchPosts() {
+      await axios.get("/api/question/getPosts").then((res) => {
+        this.list = res.data;
+      });
+    },
+
+    async emitUpVote(posts) {
+      localStorage.setItem("answerID", posts.answerEntity.answerID);
+      const isAlreadyLiked = this.isLiked.some(
+        (id) => id === posts.answerEntity.answerID
+      );
+      if (isAlreadyLiked) {
+        this.isLiked = this.isLiked.filter(
+          (id) => id !== posts.answerEntity.answerID
+        );
+      } else {
+        this.isLiked.push(posts.answerEntity.answerID);
+      }
+      console.log(JSON.stringify(this.isLiked));
+      await axios
+        .post(
+          "/api/answer/upVote/" +
+            localStorage.getItem("answerID") +
+            "/" +
+            localStorage.getItem("userId")
+        )
+        .then((res) => {
+          this.list1 = res.data;
+          this.fetchPosts();
+        });
+      // console.log(this.list1);
+    },
+    async emitDownVote(posts) {
+      localStorage.setItem("answerID", posts.answerEntity.answerID);
+      const isAlreadyDisLiked = this.isDisLiked.some(
+        (id) => id === posts.answerEntity.answerID
+      );
+      if (isAlreadyDisLiked) {
+        this.isDisLiked = this.isDisLiked.filter(
+          (id) => id !== posts.answerEntity.answerID
+        );
+      } else {
+        this.isDisLiked.push(posts.answerEntity.answerID);
+      }
+      console.log(JSON.stringify(this.isDisLiked));
+      await axios
+        .post(
+          "/api/answer/downVote/" +
+            localStorage.getItem("answerID") +
+            "/" +
+            localStorage.getItem("userId")
+        )
+        .then((res) => {
+          this.list2 = res.data;
+        });
+      // console.log(this.list2);
+    },
   },
 };
 </script>
@@ -80,7 +163,6 @@ export default {
 }
 .sub {
   margin-left: 2%;
-  margin-right: 1.5%;
 }
 .fa-thumbs-up,
 .fa-thumbs-down {

@@ -1,23 +1,26 @@
 <template>
-  <div style="display: flex; flex-direction: column-reverse">
-    <div
-      v-for="(question, index) in getQuestions.questionEntityList"
-      :key="index"
-      @click="emitQuestion(question)"
-      style="cursor: pointer"
-    >
-      <!-- <p>{{ question }}</p> -->
-      <div class="main">
-        <div class="sub">
-          <div class="userDetails" style="padding: 8px; padding-top: 14px">
-            <b
-              ><p>{{ question.questionBody }}</p></b
-            >
+  <div>
+    <p>Questions asked: {{ getQuestions.questionEntityList.length }}</p>
+    <div style="display: flex; flex-direction: column-reverse">
+      <div
+        v-for="(question, index) in getQuestions.questionEntityList"
+        :key="index"
+        @click="emitQuestion(question)"
+        style="cursor: pointer"
+      >
+        <!-- <p>{{ question }}</p> -->
+        <div class="main">
+          <div class="sub">
+            <div class="userDetails" style="padding: 8px; padding-top: 14px">
+              <b
+                ><p>{{ question.questionBody }}</p></b
+              >
+            </div>
           </div>
         </div>
       </div>
+      <!-- {{ getQuestions }} -->
     </div>
-    <!-- {{ getQuestions }} -->
   </div>
 </template>
 <script>

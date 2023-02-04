@@ -1,6 +1,5 @@
 <template>
   <div>
-    In Following
     <div
       v-for="following in getFollowing"
       :key="following.userId"

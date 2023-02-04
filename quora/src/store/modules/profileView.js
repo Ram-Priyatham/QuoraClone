@@ -100,6 +100,7 @@ export default {
           commit("setLogin", response);
           console.log(response);
           localStorage.setItem("email", response.data.userId);
+          localStorage.setItem("accessToken", response.data.accessToken);
           if (response.statusText === "OK") {
             success();
           }

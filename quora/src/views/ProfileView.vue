@@ -19,8 +19,8 @@
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
-            <p class="statistic-value">{{ questionsCount }}</p>
-            <p class="statistic-label">Questions</p>
+            <!-- <p class="statistic-value">{{ questionsCount }}</p> -->
+            <b><p class="statistic-label">Questions</p></b>
           </div>
         </router-link>
         <router-link
@@ -28,8 +28,8 @@
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
-            <p class="statistic-value">{{ answersCount }}</p>
-            <p class="statistic-label">Answers</p>
+            <!-- <p class="statistic-value">{{ answersCount }}</p> -->
+            <b><p class="statistic-label">Answers</p></b>
           </div>
         </router-link>
         <router-link
@@ -37,8 +37,8 @@
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
-            <p class="statistic-value">{{ followersCount }}</p>
-            <p class="statistic-label">Followers</p>
+            <!-- <p class="statistic-value">{{ followersCount }}</p> -->
+            <b><p class="statistic-label">Followers</p></b>
           </div>
         </router-link>
         <router-link
@@ -46,8 +46,8 @@
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
-            <p class="statistic-value">{{ followingCount }}</p>
-            <p class="statistic-label">Following</p>
+            <!-- <p class="statistic-value">{{ followingCount }}</p> -->
+            <b><p class="statistic-label">Following</p></b>
           </div>
         </router-link>
       </div>

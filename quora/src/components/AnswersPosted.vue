@@ -22,6 +22,10 @@ export default {
   },
   methods: {
     ...mapActions(["getAnswersApi"]),
+    // emitAnswer(answers) {
+    //   localStorage.setItem("answerID", answers.answerID);
+    //   this.$router.push("/answerdescription");
+    // },
   },
   created() {
     this.$store.dispatch("getAnswersApi", {

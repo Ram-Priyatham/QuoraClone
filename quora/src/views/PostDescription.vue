@@ -7,16 +7,28 @@
       <div class="main">
         <div class="sub">
           <div class="userDetails">
-            <p>{{ answer.answerID }}</p>
+            <p>
+              <img
+                :src="answer.answerGiverImage"
+                style="width: 50px; padding-top: 10px"
+              />
+              <b>{{ answer.answerGiverName }}</b>
+            </p>
+            <!-- <p>{{ answer.answerID }}</p> -->
             <p>{{ answer.answerBody }}</p>
-            <p>{{ answer.answerGiverName }}</p>
+            <div>
+              <i class="fas fa-thumbs-up"></i>
+              <span style="visibility: hidden">R</span>
+              <i class="fas fa-thumbs-down"></i>
+            </div>
             <!-- <p>{{ answer.questionBody }}</p> -->
             <!-- <p>{{ answer.questionId }}</p> -->
-            <button>Upvote</button>
+            <!-- <button>Upvote</button> -->
           </div>
         </div>
       </div>
     </div>
+    <!-- {{ list }} -->
   </div>
 </template>
 <script>
@@ -53,6 +65,11 @@ export default {
   margin-left: 26%;
   background-color: white;
   border-radius: 6px;
+}
+.fa-thumbs-up,
+.fa-thumbs-down {
+  font-size: 20px;
+  cursor: pointer;
 }
 .sub {
   margin-left: 2%;
