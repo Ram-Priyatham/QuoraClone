@@ -9,17 +9,23 @@
         />
         <div class="profile-info">
           <h1 class="profile-name">{{ getProfileAnotherUser.userName }}</h1>
+          <div v-if="!isFollower">
+            <button class="follow-button">Following</button>
+          </div>
+          <div v-else>
+            <button class="follow-button" @click="followPerson">Follow</button>
+          </div>
           <p class="profile-bio">{{ getProfileAnotherUser.bio }}</p>
           <p>User score: {{ getProfileAnotherUser.score }}</p>
           <p>Classification: {{ getProfileAnotherUser.classification }}</p>
         </div>
       </div>
-      User profile{{ getProfileAnotherUser }}
+      <!-- User profile{{ getProfileAnotherUser }} -->
     </header>
     <div style="display: contents">
       <div class="statistics">
         <router-link
-          to="/profile/questions"
+          to="/profileanother/questionsanother"
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
@@ -28,7 +34,7 @@
           </div>
         </router-link>
         <router-link
-          to="/profile/answers"
+          to="/profileanother/answersanother"
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
@@ -37,7 +43,7 @@
           </div>
         </router-link>
         <router-link
-          to="/profile/followers"
+          to="/profileanother/followersanother"
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
@@ -46,7 +52,7 @@
           </div>
         </router-link>
         <router-link
-          to="/profile/following"
+          to="/profileanother/followinganother"
           style="text-decoration: none; color: inherit"
         >
           <div class="statistic">
@@ -57,41 +63,52 @@
       </div>
       <router-view />
     </div>
-    {{ getProfileAnotherUser }}
+    <!-- {{ getProfileAnotherUser }} -->
   </div>
 </template>
 
 <script>
 // import { computed } from "@vue/runtime-core";
+import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
       profileImage: "https://via.placeholder.com/150",
-      // name: localStorage.getItem("name"),
-      // bio: "A sample bio about him",
-      // questionsCount: 15,
-      // answersCount: 20,
-      // followersCount: 100,
-      // followingCount: 50,
-      // recentActivity: [
-      //   "Asked a question about Vue.js",
-      //   "Answered a question about JavaScript",
-      //   "Followed a new user",
-      // ],
-      userId: localStorage.getItem("userSearch"),
+      isFollower: false,
     };
   },
   computed: {
     ...mapGetters(["getProfileAnotherUser"]),
+    userId() {
+      return localStorage.getItem("email");
+    },
+    userSearch() {
+      return localStorage.getItem("userSearch");
+    },
   },
   methods: {
     ...mapActions(["getProfileAnotherUserApi"]),
+    followPerson() {
+      axios.post(`/api/User/follow/${this.userId}/${this.userSearch}`);
+      window.location.href = "/profileanother";
+    },
   },
   created() {
     this.$store.dispatch("getProfileAnotherUserApi", {
       id: localStorage.getItem("userSearch"),
     });
+    axios
+      .get(`/api/User/showFollowButton/${this.userId}/${this.userSearch}`)
+      .then((response) => {
+        console.log("true or false response", response);
+        if (response.data) {
+          this.isFollower = true;
+        }
+      })
+      .then((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
@@ -183,7 +200,16 @@ f .activity-list {
   list-style: none;
   padding: 0;
 }
-
+.follow-button {
+  background-color: #0084ff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 20px;
+}
 .activity-item {
   font-size: 16px;
   color: #333;

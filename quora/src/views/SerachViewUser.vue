@@ -2,7 +2,7 @@
   <div style="margin-left: 30%; margin-right: 30%; margin-top: 2%">
     <div
       class="main"
-      v-for="(users, index) in getQuestionList"
+      v-for="(users, index) in getUserList"
       :key="index"
       @click="searchInput(users)"
     >
@@ -19,9 +19,8 @@
           <p style="padding-top: 25px">{{ users.bio }}</p>
         </div>
       </div>
-      <!-- {{ getQuestionList }} -->
+      <!-- {{ getUserList }} -->
     </div>
-    {{ getQuestionList }}
   </div>
 </template>
 
@@ -29,7 +28,7 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["getQuestionList"]),
+    ...mapGetters(["getUserList"]),
   },
   data() {
     return {
@@ -37,12 +36,12 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("SEARCH_QUESTION_LIST", {
-      questionsearch: this.searchText,
+    this.$store.dispatch("SEARCH_USER_LIST", {
+      userName: this.searchText,
     });
   },
   methods: {
-    ...mapActions(["SEARCH_QUESTION_LIST"]),
+    ...mapActions(["SEARCH_USER_LIST"]),
     searchInput(users) {
       localStorage.setItem("userSearch", users.userId);
       this.$router.push("/profileanother");
@@ -50,7 +49,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .main {
   border: 1.4px #ced5da solid;

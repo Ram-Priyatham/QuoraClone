@@ -1,27 +1,35 @@
 <template>
   <div>
-    <p>
-      <b>{{ list[0].questionBody }}</b>
-    </p>
-    <div v-for="(answer, index) in list" :key="index">
-      <div class="main">
-        <div class="sub">
-          <div class="userDetails">
-            <!-- <p>{{ answer.answerID }}</p> -->
-            <p>{{ answer.answerUserID }}</p>
-            <p>
-              <img
-                :src="answer.answerGiverImage"
-                style="width: 50px; padding-top: 10px"
-              />
-              <b>{{ answer.answerGiverName }}</b>
-            </p>
-            <!-- <p>{{ answer.questionBody }}</p> -->
-            <p>{{ answer.answerBody }}</p>
-            <div>
-              <i class="fas fa-thumbs-up"></i>
-              <span style="visibility: hidden">R</span>
-              <i class="fas fa-thumbs-down"></i>
+    <div
+      v-if="!list.length"
+      style="display: flex; flex-direction: column; margin-top: 20%"
+    >
+      <h2>Sorry No Answers Yet!</h2>
+    </div>
+    <div v-else>
+      <p>
+        <b>{{ list[0].questionBody }}</b>
+      </p>
+      <div v-for="(answer, index) in list" :key="index">
+        <div class="main">
+          <div class="sub">
+            <div class="userDetails">
+              <!-- <p>{{ answer.answerID }}</p> -->
+              <p>{{ answer.answerUserID }}</p>
+              <p>
+                <img
+                  :src="answer.answerGiverImage"
+                  style="width: 50px; padding-top: 10px"
+                />
+                <b>{{ answer.answerGiverName }}</b>
+              </p>
+              <!-- <p>{{ answer.questionBody }}</p> -->
+              <p>{{ answer.answerBody }}</p>
+              <div>
+                <i class="fas fa-thumbs-up"></i>
+                <span style="visibility: hidden">R</span>
+                <i class="fas fa-thumbs-down"></i>
+              </div>
             </div>
           </div>
         </div>

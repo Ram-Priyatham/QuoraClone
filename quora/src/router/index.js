@@ -14,6 +14,11 @@ import PostDescription from "../views/PostDescription.vue";
 import PostQuestion from "../components/PostQuestion.vue";
 import AnswerQuestion from "../components/AnswerQuestion.vue";
 import SearchView from "../views/SearchView.vue";
+import QuestionsAskedAnotherPerson from "../components/QuestionsAskedAnotherPerson.vue";
+import AnswersPostedAnotherPerson from "../components/AnswersPostedAnotherPerson.vue";
+import FollowersComponentAnotherPerson from "../components/FollowersComponentAnotherPerson.vue";
+import FollowingComponentAnotherPerson from "../components/FollowingComponentAnotherPerson.vue";
+import SerachViewUser from "../views/SerachViewUser.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +32,11 @@ const routes = [
     path: "/search/:searchText",
     name: "search",
     component: SearchView,
+  },
+  {
+    path: "/searchUser/:searchText",
+    name: "searchUser",
+    component: SerachViewUser,
   },
   {
     path: "/userregistration",
@@ -89,6 +99,28 @@ const routes = [
     path: "/profileanother",
     name: "ProfileAnotherUser",
     component: ProfileAnotherPerson,
+    children: [
+      {
+        path: "questionsanother",
+        name: "questionsanother",
+        component: QuestionsAskedAnotherPerson,
+      },
+      {
+        path: "answersanother",
+        name: "answersanother",
+        component: AnswersPostedAnotherPerson,
+      },
+      {
+        path: "followersanother",
+        name: "followersanother",
+        component: FollowersComponentAnotherPerson,
+      },
+      {
+        path: "followinganother",
+        name: "followinganother",
+        component: FollowingComponentAnotherPerson,
+      },
+    ],
   },
   {
     path: "/about",

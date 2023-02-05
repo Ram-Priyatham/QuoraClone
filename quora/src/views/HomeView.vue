@@ -24,25 +24,12 @@
               <p>{{ posts.commentsList }}</p>
             </div>
             <div>
-              <i
-                class="fas fa-thumbs-up"
-                @click="emitUpVote(posts)"
-                :style="
-                  isLiked.includes(posts.answerEntity.answerID)
-                    ? 'background: blue;'
-                    : ''
-                "
-              ></i>
+              <i class="fas fa-thumbs-up" @click="emitUpVote(posts)"></i>
+              <!-- {{ likesList }} -->
+              {{ posts.answerEntity.upVotersList.length }}
               <span style="visibility: hidden">R</span>
-              <i
-                class="fas fa-thumbs-down"
-                @click="emitDownVote(posts)"
-                :style="
-                  isDisLiked.includes(posts.answerEntity.answerID)
-                    ? 'background: blue;'
-                    : ''
-                "
-              ></i>
+              <i class="fas fa-thumbs-down" @click="emitDownVote(posts)"></i>
+              {{ posts.answerEntity.downVotersList.length }}
               <span style="visibility: hidden">R</span>
               <span style="visibility: hidden">R</span>
               <p
@@ -119,9 +106,20 @@ export default {
       isLiked: [],
       isDisLiked: [],
       showAllComment: false,
+      likes: 0,
+      dislikes: 0,
+      likesList: [],
+      dislikesList: [],
+      activeUpVote: false,
+      activeDownVote: false,
+      ansId: "",
     };
   },
-
+  computed: {
+    usrId() {
+      return localStorage.getItem("email");
+    },
+  },
   async created() {
     await axios.get("/api/question/getPosts").then((res) => {
       this.list = res.data;
@@ -129,7 +127,6 @@ export default {
     // console.log(this.list);
     // console.log(JSON.stringify(this.list));
   },
-
   methods: {
     //     async onUpVote(){
     //         await axios.get("http://10.20.3.153:8081/answer/upvote"+this.list)
@@ -151,6 +148,8 @@ export default {
           console.log(res);
         });
       }
+      this.showComment = !this.showComment;
+      // this.showAllComment = !this.showAllComment;
     },
     emitComment() {
       this.showComment = !this.showComment;
@@ -171,32 +170,61 @@ export default {
         this.list = res.data;
       });
     },
-
-    async emitUpVote(posts) {
-      localStorage.setItem("answerID", posts.answerEntity.answerID);
-      const isAlreadyLiked = this.isLiked.some(
-        (id) => id === posts.answerEntity.answerID
+    emitUpVote(posts) {
+      this.activeUpVote = !this.activeUpVote;
+      const isPostAlreadyLiked = this.isLiked.some(
+        (currentPostId) => currentPostId === posts.answerEntity.answerID
       );
-      if (isAlreadyLiked) {
+      if (isPostAlreadyLiked) {
         this.isLiked = this.isLiked.filter(
-          (id) => id !== posts.answerEntity.answerID
+          (currentPostId) => currentPostId !== posts.answerEntity.answerID
         );
       } else {
         this.isLiked.push(posts.answerEntity.answerID);
       }
-      console.log(JSON.stringify(this.isLiked));
-      await axios
-        .post(
-          "/api/answer/upVote/" +
-            localStorage.getItem("answerID") +
-            "/" +
-            localStorage.getItem("userId")
-        )
-        .then((res) => {
-          this.list1 = res.data;
-          this.fetchPosts();
+      // this.ansId: posts.answerEntity.answerID;
+      axios
+        .post(`/api/answer/upVote/${posts.answerEntity.answerID}/${this.usrId}`)
+        .then((response) => {
+          this.likesList = response.data.message;
+          console.log("upvote response is ", this.likesList);
+          console.log("response is ", response);
+          // location.reload();
+          this.activeUpVote = !this.activeUpVote;
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-      // console.log(this.list1);
+      location.reload();
+    },
+    emitDownVote(posts) {
+      this.activeDownVote = !this.activeDownVote;
+      const isPostAlreadyDisLiked = this.isDisLiked.some(
+        (currentPostId) => currentPostId === posts.answerEntity.answerID
+      );
+      if (isPostAlreadyDisLiked) {
+        this.isDisLiked = this.isDisLiked.filter(
+          (currentPostId) => currentPostId !== posts.answerEntity.answerID
+        );
+      } else {
+        this.isDisLiked.push(posts.answerEntity.answerID);
+      }
+      // this.ansId: posts.answerEntity.answerID;
+      axios
+        .post(
+          `/api/answer/downVote/${posts.answerEntity.answerID}/${this.usrId}`
+        )
+        .then((response) => {
+          this.dislikesList = response.data.message;
+          console.log("upvote response is ", this.dislikesList);
+          console.log("response is ", response);
+          // location.reload();
+          this.activeDownVote = !this.activeDownVote;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      location.reload();
     },
     emitAllComment(posts) {
       this.showAllComment = !this.showAllComment;
@@ -222,31 +250,6 @@ export default {
           console.log(error);
         });
       // return this.allComments;
-    },
-    async emitDownVote(posts) {
-      localStorage.setItem("answerID", posts.answerEntity.answerID);
-      const isAlreadyDisLiked = this.isDisLiked.some(
-        (id) => id === posts.answerEntity.answerID
-      );
-      if (isAlreadyDisLiked) {
-        this.isDisLiked = this.isDisLiked.filter(
-          (id) => id !== posts.answerEntity.answerID
-        );
-      } else {
-        this.isDisLiked.push(posts.answerEntity.answerID);
-      }
-      console.log(JSON.stringify(this.isDisLiked));
-      await axios
-        .post(
-          "/api/answer/downVote/" +
-            localStorage.getItem("answerID") +
-            "/" +
-            localStorage.getItem("userId")
-        )
-        .then((res) => {
-          this.list2 = res.data;
-        });
-      // console.log(this.list2);
     },
   },
 };
@@ -288,5 +291,6 @@ export default {
 .fa-comments {
   font-size: 18px;
   cursor: pointer;
+  color: #2c3f51;
 }
 </style>

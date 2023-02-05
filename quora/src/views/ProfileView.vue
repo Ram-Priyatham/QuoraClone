@@ -1,5 +1,7 @@
 <template>
   <div class="profile-page">
+    <input type="text" v-model="searchText" placeholder="Search User" />
+    <button @click="submit">Search</button>
     <header>
       <div class="header-content">
         <img class="profile-image" :src="getProfile.img" alt="Profile Image" />
@@ -65,15 +67,6 @@ export default {
       profileImage: "https://via.placeholder.com/150",
       name: localStorage.getItem("name"),
       bio: "A sample bio about him",
-      questionsCount: 15,
-      answersCount: 20,
-      followersCount: 100,
-      followingCount: 50,
-      recentActivity: [
-        "Asked a question about Vue.js",
-        "Answered a question about JavaScript",
-        "Followed a new user",
-      ],
       userId: localStorage.getItem("email"),
     };
   },
@@ -82,6 +75,9 @@ export default {
   },
   methods: {
     ...mapActions(["getProfileApi"]),
+    submit() {
+      this.$router.push(`/searchUser/${this.searchText}`);
+    },
   },
   created() {
     this.$store.dispatch("getProfileApi", {
