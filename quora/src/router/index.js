@@ -19,6 +19,7 @@ import AnswersPostedAnotherPerson from "../components/AnswersPostedAnotherPerson
 import FollowersComponentAnotherPerson from "../components/FollowersComponentAnotherPerson.vue";
 import FollowingComponentAnotherPerson from "../components/FollowingComponentAnotherPerson.vue";
 import SerachViewUser from "../views/SerachViewUser.vue";
+import AnswerAnyQuestion from "../components/AnswerAnyQuestion.vue";
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,11 @@ const routes = [
     path: "/answerquestion",
     name: "answerquestion",
     component: AnswerQuestion,
+  },
+  {
+    path: "/answeranyquestion",
+    name: "answeranyquestion",
+    component: AnswerAnyQuestion,
   },
   {
     path: "/questiondescription",

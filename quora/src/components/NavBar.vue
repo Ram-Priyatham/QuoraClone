@@ -29,6 +29,14 @@
         <li class="nav-link"><a href="#">Notifications</a></li>
         <li class="nav-link"><a href="#">Messages</a></li> -->
       </ul>
+      <ul class="nav-links">
+        <router-link
+          to="/answeranyquestion"
+          style="text-decoration: none; color: inherit"
+        >
+          <li class="nav-link">Answer a Question</li></router-link
+        >
+      </ul>
       <div class="user-actions">
         <router-link
           to="/postquestion"
