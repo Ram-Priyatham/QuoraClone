@@ -10,6 +10,7 @@ export default {
     register: "",
     login: "",
     profileAnotherUser: [],
+    // allQuestions: [],
   },
   getters: {
     getFollowing: (state) => state.following,
@@ -18,6 +19,7 @@ export default {
     getAnswers: (state) => state.answers,
     getQuestions: (state) => state.questions,
     getProfileAnotherUser: (state) => state.profileAnotherUser,
+    // getAllQuestions: (state) => state.allQuestions,
     getRegister: (state) => {
       return state.register;
     },
@@ -47,6 +49,9 @@ export default {
     setProfileAnotherUser: (state, value) => {
       state.profileAnotherUser = value;
     },
+    // setAllQuestions: (state, value) => {
+    //   state.allQuestions = value;
+    // },
     setLogin: (state, value) => {
       state.login = value;
     },
@@ -102,6 +107,15 @@ export default {
           commit("setProfileAnotherUser", res);
         });
     },
+    // getAllQuestionsApi: ({ commit }) => {
+    //   // console.log("id in console log", id);
+    //   fetch("/api/question/getAllQuestions")
+    //     .then((response) => response.json())
+    //     .then((res) => {
+    //       console.log(res);
+    //       commit("setAllQuestions", res);
+    //     });
+    // },
     async REGISTER({ commit }, { payload }) {
       const response = await axios.post("/oauth/api/auth/register", payload);
       console.log(response);

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <p>
-      <br />
-      <b>{{ list[0].questionBody }}</b>
-    </p>
-    <div>
+    <div v-if="!list.length">
       <button class="answerThis" @click="showInput = true">Answer This</button>
       <center>
         <div v-if="showInput" style="align-items: center">
@@ -18,85 +14,105 @@
         </div>
       </center>
     </div>
-    <div v-for="(answer, index) in list" :key="index">
-      <!-- {{ answer }} -->
-      <div class="main">
-        <div class="sub">
-          <div class="userDetails">
-            <p>
-              <img
-                :src="answer.answerGiverImage"
-                style="width: 50px; padding-top: 10px"
-              />
-              <b>{{ answer.answerGiverName }}</b>
-            </p>
-            <!-- <p>{{ answer.answerID }}</p> -->
-            <p>{{ answer.answerBody }}</p>
-            <div>
-              <i class="fas fa-thumbs-up" @click="emitUpVote(answer)"></i>
-              <!-- {{ likesList }} -->
-              {{ answer.upVotersList.length }}
-              <span style="visibility: hidden">R</span>
-              <i class="fas fa-thumbs-down" @click="emitDownVote(answer)"></i>
-              {{ answer.downVotersList.length }}
-              <span style="visibility: hidden">R</span>
-              <span style="visibility: hidden">R</span>
-              <p
-                class="fas fa-comment"
-                @click="emitComment"
-                style="cursor: pointer"
-              ></p>
-              <span style="visibility: hidden">R</span
-              ><span style="visibility: hidden">R</span>
-              <p
-                class="fas fa-comments"
-                @click="emitAllComment(answer)"
-                style="cursor: pointer"
-              ></p>
+    <div v-else>
+      <p>
+        <br />
+        <b>{{ list[0].questionBody }}</b>
+      </p>
+      <div>
+        <button class="answerThis" @click="showInput = true">
+          Answer This
+        </button>
+        <center>
+          <div v-if="showInput" style="align-items: center">
+            <textarea
+              type="text"
+              class="form-control"
+              v-model="inputValue"
+              style="width: 350px; height: 150px"
+            />
+            <button class="answerThis" @click="submitInput">Submit</button>
+          </div>
+        </center>
+      </div>
+      <div v-for="(answer, index) in list" :key="index">
+        <!-- {{ answer }} -->
+        <div class="main">
+          <div class="sub">
+            <div class="userDetails">
+              <p>
+                <img
+                  :src="answer.answerGiverImage"
+                  style="width: 50px; padding-top: 10px"
+                />
+                <b>{{ answer.answerGiverName }}</b>
+              </p>
+              <!-- <p>{{ answer.answerID }}</p> -->
+              <p>{{ answer.answerBody }}</p>
+              <div>
+                <i class="fas fa-thumbs-up" @click="emitUpVote(answer)"></i>
+                <!-- {{ likesList }} -->
+                {{ answer.upVotersList.length }}
+                <span style="visibility: hidden">R</span>
+                <i class="fas fa-thumbs-down" @click="emitDownVote(answer)"></i>
+                {{ answer.downVotersList.length }}
+                <span style="visibility: hidden">R</span>
+                <span style="visibility: hidden">R</span>
+                <p
+                  class="fas fa-comment"
+                  @click="emitComment"
+                  style="cursor: pointer"
+                ></p>
+                <span style="visibility: hidden">R</span
+                ><span style="visibility: hidden">R</span>
+                <p
+                  class="fas fa-comments"
+                  @click="emitAllComment(answer)"
+                  style="cursor: pointer"
+                ></p>
 
-              <div v-if="allComments[answer.answerID]">
-                <div
-                  v-for="comment in allComments[answer.answerID]"
-                  :key="comment.commentId"
-                >
-                  <div class="showcomments" v-if="showAllComment">
-                    <div class="column">
-                      <img
-                        :src="comment.commenterImage"
-                        style="width: 50px"
-                      />&nbsp;
-                      <b>{{ comment.userName }}</b>
+                <div v-if="allComments[answer.answerID]">
+                  <div
+                    v-for="comment in allComments[answer.answerID]"
+                    :key="comment.commentId"
+                  >
+                    <div class="showcomments" v-if="showAllComment">
+                      <div class="column">
+                        <img
+                          :src="comment.commenterImage"
+                          style="width: 50px"
+                        />&nbsp;
+                        <b>{{ comment.userName }}</b>
+                      </div>
+                      <p style="margin-left: 10%">{{ comment.commentBody }}</p>
+                      <hr class="my-4" />
                     </div>
-                    <p style="margin-left: 10%">{{ comment.commentBody }}</p>
-                    <hr class="my-4" />
                   </div>
                 </div>
               </div>
+              <!-- <p>{{ answer.questionBody }}</p> -->
+              <!-- <p>{{ answer.questionId }}</p> -->
+              <!-- <button>Upvote</button> -->
             </div>
-            <!-- <p>{{ answer.questionBody }}</p> -->
-            <!-- <p>{{ answer.questionId }}</p> -->
-            <!-- <button>Upvote</button> -->
           </div>
         </div>
-      </div>
-      <div style="padding-top: 5px">
-        <input
-          v-if="showComment"
-          v-model="inputText"
-          type="text"
-          class="form-group"
-        />&nbsp;
-        <button
-          v-if="showComment"
-          @click="commenting(answer)"
-          class="commentButton"
-        >
-          Comment
-        </button>
+        <div style="padding-top: 5px">
+          <input
+            v-if="showComment"
+            v-model="inputText"
+            type="text"
+            class="form-group"
+          />&nbsp;
+          <button
+            v-if="showComment"
+            @click="commenting(answer)"
+            class="commentButton"
+          >
+            Comment
+          </button>
+        </div>
       </div>
     </div>
-
-    <!-- {{ list }} -->
   </div>
 </template>
 <script>

@@ -1,7 +1,17 @@
 <template>
   <div class="profile-page">
-    <input type="text" v-model="searchText" placeholder="Search User" />
-    <button @click="submit">Search</button>
+    <div
+      style="
+        float: right;
+        display: flex;
+        justify-content: end;
+        margin-left: 70%;
+        padding-top: 10px;
+      "
+    >
+      <input type="text" v-model="searchText" placeholder="Search User" />&nbsp;
+      <button class="user-search" @click="submit">Search</button>
+    </div>
     <header>
       <div class="header-content">
         <img class="profile-image" :src="getProfile.img" alt="Profile Image" />
@@ -142,7 +152,16 @@ main {
   width: 100%;
   margin-bottom: 20px;
 }
-
+.user-search {
+  background-color: #0084ff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 20px;
+}
 .statistic {
   display: flex;
   flex-direction: column;
