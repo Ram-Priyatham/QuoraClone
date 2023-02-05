@@ -1,27 +1,26 @@
 <template>
-  <div style="margin-left: 30%; margin-right: 30%; margin-top: 2%">
-    <div
-      class="main"
-      v-for="(users, index) in getQuestionList"
-      :key="index"
-      @click="searchInput(users)"
-    >
-      <div class="row">
-        <div class="column" style="padding-top: 5px">
-          <img :src="users.img" style="width: 80px" />
+  <div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <div
+        v-for="(question, index) in getQuestionList"
+        :key="index"
+        @click="emitQuestion(question)"
+        style="cursor: pointer"
+      >
+        <div class="main">
+          <div class="sub">
+            <div class="userDetails" style="padding: 8px; padding-top: 14px">
+              <b
+                ><p>{{ question.questionBody }}</p></b
+              >
+            </div>
+          </div>
         </div>
-        <div class="column">
-          <b
-            ><p style="padding-top: 25px">{{ users.userName }}</p></b
-          >
-        </div>
-        <div class="column">
-          <p style="padding-top: 25px">{{ users.bio }}</p>
-        </div>
+        <!-- {{ question }} -->
       </div>
-      <!-- {{ getQuestionList }} -->
     </div>
-    {{ getQuestionList }}
+    <!-- {{ list }} -->
+    <!-- {{ getQuestionList }} -->
   </div>
 </template>
 
@@ -43,9 +42,9 @@ export default {
   },
   methods: {
     ...mapActions(["SEARCH_QUESTION_LIST"]),
-    searchInput(users) {
-      localStorage.setItem("userSearch", users.userId);
-      this.$router.push("/profileanother");
+    emitQuestion(question) {
+      localStorage.setItem("questionID", question.questionId);
+      this.$router.push("/postdescription");
     },
   },
 };
@@ -53,21 +52,19 @@ export default {
 
 <style scoped>
 .main {
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: row;
+  text-align: left;
   border: 1.4px #ced5da solid;
   margin-top: 10px;
+  width: 40vw;
+  align-content: center;
+  /* margin-left: 26%; */
   background-color: white;
   border-radius: 6px;
 }
-.column {
-  float: left;
-  width: 33.33%;
-  height: 90px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.sub {
+  margin-left: 2%;
 }
 </style>

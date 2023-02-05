@@ -116,7 +116,7 @@ export default {
 }
 
 .search-button {
-  background-color: #0084ff;
+  background-color: #b92b28;
   border: none;
   color: #fff;
   padding: 8px 12px;
@@ -153,7 +153,7 @@ export default {
 }
 
 .write-question-button {
-  background-color: #0084ff;
+  background-color: #b92b28;
   color: #fff;
   border: none;
   padding: 8px 12px;

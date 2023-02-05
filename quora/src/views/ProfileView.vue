@@ -153,7 +153,7 @@ main {
   margin-bottom: 20px;
 }
 .user-search {
-  background-color: #0084ff;
+  background-color: #b92b28;
   color: #fff;
   border: none;
   padding: 8px 12px;
