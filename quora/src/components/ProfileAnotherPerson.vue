@@ -1,27 +1,100 @@
 <template>
   <div class="profile-page">
-    <div class="header">
-      <div class="user-info">
-        <img class="user-avatar" src="path/to/avatar.jpg" />
-        <h2 class="username">Name</h2>
-        <p class="user-bio">Bio text here</p>
+    <header>
+      <div class="header-content">
+        <img
+          class="profile-image"
+          :src="getProfileAnotherUser.img"
+          alt="Profile Image"
+        />
+        <div class="profile-info">
+          <h1 class="profile-name">{{ getProfileAnotherUser.userName }}</h1>
+          <p class="profile-bio">{{ getProfileAnotherUser.bio }}</p>
+          <p>User score: {{ getProfileAnotherUser.score }}</p>
+          <p>Classification: {{ getProfileAnotherUser.classification }}</p>
+        </div>
       </div>
-      <div class="header-actions">
-        <button class="follow-button">Follow</button>
-        <button class="message-button">Message</button>
+      User profile{{ getProfileAnotherUser }}
+    </header>
+    <div style="display: contents">
+      <div class="statistics">
+        <router-link
+          to="/profile/questions"
+          style="text-decoration: none; color: inherit"
+        >
+          <div class="statistic">
+            <p class="statistic-value">{{ questionsCount }}</p>
+            <b><p class="statistic-label">Questions</p></b>
+          </div>
+        </router-link>
+        <router-link
+          to="/profile/answers"
+          style="text-decoration: none; color: inherit"
+        >
+          <div class="statistic">
+            <!-- <p class="statistic-value">{{ answersCount }}</p> -->
+            <b><p class="statistic-label">Answers</p></b>
+          </div>
+        </router-link>
+        <router-link
+          to="/profile/followers"
+          style="text-decoration: none; color: inherit"
+        >
+          <div class="statistic">
+            <!-- <p class="statistic-value">{{ followersCount }}</p> -->
+            <b><p class="statistic-label">Followers</p></b>
+          </div>
+        </router-link>
+        <router-link
+          to="/profile/following"
+          style="text-decoration: none; color: inherit"
+        >
+          <div class="statistic">
+            <!-- <p class="statistic-value">{{ followingCount }}</p> -->
+            <b><p class="statistic-label">Following</p></b>
+          </div>
+        </router-link>
       </div>
+      <router-view />
     </div>
-    <div class="navigation">
-      <a class="nav-item" href="#">Activity</a>
-      <a class="nav-item" href="#">Answers</a>
-      <a class="nav-item" href="#">Questions</a>
-      <a class="nav-item" href="#">Blogs</a>
-    </div>
-    <div class="content">
-      <!-- content here -->
-    </div>
+    {{ getProfileAnotherUser }}
   </div>
 </template>
+
+<script>
+// import { computed } from "@vue/runtime-core";
+import { mapGetters, mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      profileImage: "https://via.placeholder.com/150",
+      // name: localStorage.getItem("name"),
+      // bio: "A sample bio about him",
+      // questionsCount: 15,
+      // answersCount: 20,
+      // followersCount: 100,
+      // followingCount: 50,
+      // recentActivity: [
+      //   "Asked a question about Vue.js",
+      //   "Answered a question about JavaScript",
+      //   "Followed a new user",
+      // ],
+      userId: localStorage.getItem("userSearch"),
+    };
+  },
+  computed: {
+    ...mapGetters(["getProfileAnotherUser"]),
+  },
+  methods: {
+    ...mapActions(["getProfileAnotherUserApi"]),
+  },
+  created() {
+    this.$store.dispatch("getProfileAnotherUserApi", {
+      id: localStorage.getItem("userSearch"),
+    });
+  },
+};
+</script>
 
 <style>
 .profile-page {
@@ -30,63 +103,90 @@
   align-items: center;
 }
 
-.header {
+header {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #f4f4f4;
   padding: 20px;
-  background-color: #fafafa;
+  text-align: center;
 }
 
-.user-info {
+.header-content {
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-.user-avatar {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
-.header-actions {
-  display: flex;
   justify-content: center;
 }
 
-.follow-button,
-.message-button {
-  background-color: #0084ff;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 24px;
-  cursor: pointer;
-  font-size: 16px;
+.profile-image {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
   margin-right: 20px;
 }
 
-.navigation {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  background-color: #fafafa;
+.profile-info {
+  text-align: left;
 }
 
-.nav-item {
-  padding: 20px;
-  color: #333;
+.profile-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.profile-bio {
   font-size: 16px;
-  text-decoration: none;
+  color: #333;
 }
-
-.content {
+p {
+  color: black;
+}
+main {
   width: 100%;
   padding: 20px;
-  background-color: #fff;
+}
+
+.statistics {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.statistic {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  cursor: pointer;
+}
+
+.statistic-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.statistic-label {
+  font-size: 16px;
+  color: #333;
+}
+
+.activity {
+  width: 100%;
+}
+
+.activity-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+f .activity-list {
+  list-style: none;
+  padding: 0;
+}
+
+.activity-item {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
 }
 </style>

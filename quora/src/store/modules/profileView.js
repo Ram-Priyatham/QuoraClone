@@ -44,8 +44,8 @@ export default {
     setRegister: (state, value) => {
       state.register = value;
     },
-    getProfileAnotherUser: (state, value) => {
-      state.register = value;
+    setProfileAnotherUser: (state, value) => {
+      state.profileAnotherUser = value;
     },
     setLogin: (state, value) => {
       state.login = value;
@@ -94,6 +94,7 @@ export default {
         });
     },
     getProfileAnotherUserApi: ({ commit }, { id }) => {
+      console.log("id in console log", id);
       fetch(`/api/User/findUserById/${id}`)
         .then((response) => response.json())
         .then((res) => {
