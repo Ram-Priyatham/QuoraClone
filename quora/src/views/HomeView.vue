@@ -121,9 +121,11 @@ export default {
     },
   },
   async created() {
-    await axios.get("/api/question/getPosts").then((res) => {
-      this.list = res.data;
-    });
+    await axios
+      .get(`/api/question/getPostsbyUserId/${this.usrId}`)
+      .then((res) => {
+        this.list = res.data;
+      });
     // console.log(this.list);
     // console.log(JSON.stringify(this.list));
   },
