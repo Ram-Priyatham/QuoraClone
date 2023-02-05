@@ -10,8 +10,8 @@
               <p>
                 <img
                   :src="posts.answerEntity.answerGiverImage"
-                  style="width: 50px; padding-top: 10px"
-                />
+                  style="width: 60px; padding-top: 10px"
+                />&nbsp;&nbsp;
                 <b>{{ posts.answerEntity.answerGiverName }}</b>
               </p>
               <p>
@@ -45,22 +45,34 @@
               ></i>
               <span style="visibility: hidden">R</span>
               <span style="visibility: hidden">R</span>
-              <button class="fas fa-comment" @click="emitComment"></button>
+              <p
+                class="fas fa-comment"
+                @click="emitComment"
+                style="cursor: pointer"
+              ></p>
               <span style="visibility: hidden">R</span
               ><span style="visibility: hidden">R</span>
-              <button class="fas fa-comment" @click="emitAllComment(posts)">
-                All
-              </button>
+              <p
+                class="fas fa-comments"
+                @click="emitAllComment(posts)"
+                style="cursor: pointer"
+              ></p>
               <!-- {{ allComment[posts] }} -->
               <div v-if="allComments[posts.answerEntity.answerID]">
                 <div
                   v-for="comment in allComments[posts.answerEntity.answerID]"
                   :key="comment.commentId"
                 >
-                  <div class="showcomments">
-                    <img :src="comment.commenterImage" />
-                    <h2>{{ comment.userName }}</h2>
-                    <h2>{{ comment.commentBody }}</h2>
+                  <div class="showcomments" v-if="showAllComment">
+                    <div class="column">
+                      <img
+                        :src="comment.commenterImage"
+                        style="width: 50px"
+                      />&nbsp;
+                      <b>{{ comment.userName }}</b>
+                    </div>
+                    <p style="margin-left: 10%">{{ comment.commentBody }}</p>
+                    <hr class="my-4" />
                   </div>
                 </div>
               </div>
@@ -68,8 +80,21 @@
           </div>
         </div>
       </div>
-      <input v-if="boolValue" v-model="inputText" type="text" />
-      <button v-if="boolValue" @click="commenting(posts)">Comment</button>
+      <div style="padding-top: 5px">
+        <input
+          v-if="showComment"
+          v-model="inputText"
+          type="text"
+          class="form-group"
+        />&nbsp;
+        <button
+          v-if="showComment"
+          @click="commenting(posts)"
+          class="commentButton"
+        >
+          Comment
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -84,7 +109,7 @@ export default {
       userId: localStorage.getItem("userid"),
       userName: localStorage.getItem("name"),
       inputText: "",
-      boolValue: false,
+      showComment: false,
       list: undefined,
       list1: undefined,
       list2: undefined,
@@ -93,6 +118,7 @@ export default {
       msg: "",
       isLiked: [],
       isDisLiked: [],
+      showAllComment: false,
     };
   },
 
@@ -127,7 +153,7 @@ export default {
       }
     },
     emitComment() {
-      this.boolValue = true;
+      this.showComment = !this.showComment;
       console.log(this.inputText);
     },
     emitPost(posts) {
@@ -173,6 +199,7 @@ export default {
       // console.log(this.list1);
     },
     emitAllComment(posts) {
+      this.showAllComment = !this.showAllComment;
       console.log("answer ID is ", posts.answerEntity.answerID);
       axios
         .get(`api/comment/getcommentbyanswer/${posts.answerEntity.answerID}`)
@@ -241,9 +268,25 @@ export default {
 .sub {
   margin-left: 2%;
 }
+.commentButton {
+  background-color: #b92b28;
+  color: #fff;
+  /* padding: 10px 20px; */
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  height: 24px;
+  align-content: center;
+}
 .fa-thumbs-up,
 .fa-thumbs-down {
   font-size: 20px;
+  cursor: pointer;
+}
+.fa-comment,
+.fa-comments {
+  font-size: 18px;
   cursor: pointer;
 }
 </style>
