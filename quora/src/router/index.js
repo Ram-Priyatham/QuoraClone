@@ -25,7 +25,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "home",
     component: HomeView,
   },
@@ -70,7 +70,7 @@ const routes = [
     component: PostQuestion,
   },
   {
-    path: "/userlogin",
+    path: "/",
     name: "userlogin",
     component: UserLogin,
   },

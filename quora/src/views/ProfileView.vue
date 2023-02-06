@@ -11,6 +11,7 @@
     >
       <input type="text" v-model="searchText" placeholder="Search User" />&nbsp;
       <button class="user-search" @click="submit">Search</button>
+      <button class="user-signout" @click="signout">Log Out</button>
     </div>
     <header>
       <div class="header-content">
@@ -88,6 +89,13 @@ export default {
     submit() {
       this.$router.push(`/searchUser/${this.searchText}`);
     },
+    signout() {
+      localStorage.removeItem("email"),
+        // localStorage.removeItem("questionID"),
+        // localStorage.removeItem("firebaseToken"),
+        // localStorage.removeItem("accessToken"),
+        this.$router.push("/");
+    },
   },
   created() {
     this.$store.dispatch("getProfileApi", {
@@ -161,6 +169,17 @@ main {
   cursor: pointer;
   font-size: 16px;
   margin-right: 20px;
+}
+.user-signout {
+  background-color: #b92b28;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 23px;
+  width: 90px;
 }
 .statistic {
   display: flex;

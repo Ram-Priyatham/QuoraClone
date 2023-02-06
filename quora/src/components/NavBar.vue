@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="left-section">
-      <router-link class="nav-link" to="/">
+      <router-link class="nav-link" to="/home">
         <img
           src="https://www.quora.com/favicon.ico"
           style="height: 53px"
@@ -22,7 +22,7 @@
     </div>
     <div class="right-section">
       <ul class="nav-links">
-        <router-link to="/" style="text-decoration: none; color: inherit">
+        <router-link to="/home" style="text-decoration: none; color: inherit">
           <li class="nav-link">Home</li></router-link
         >
         <!-- <li class="nav-link"><a href="#">Topics</a></li>

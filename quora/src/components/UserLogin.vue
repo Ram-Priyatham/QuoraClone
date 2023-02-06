@@ -59,7 +59,7 @@ export default {
       this.$store.dispatch("LOGIN", {
         payload: payloadData,
         success: () => {
-          this.$router.push("/");
+          this.$router.push("/home");
           // localStorage.setItem("email",)
         },
       });

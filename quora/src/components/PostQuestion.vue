@@ -57,7 +57,7 @@ export default {
       //   });
       axios.get("/api/question/param" + params);
       console.log("after response");
-      window.location.href = "/";
+      window.location.href = "/home";
       // window.location.href("/");
     },
   },
