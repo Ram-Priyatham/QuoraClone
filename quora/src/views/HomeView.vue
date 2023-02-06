@@ -1,8 +1,15 @@
 <template>
   <div>
     <!-- {{ list }} -->
-    {{ adsList }}
+    <div style="float: right; padding-right: 10px">
+      <!-- {{ adsList }} -->
+      <div v-for="(adds, index) in adsList" :key="index">
+        <img :src="adds.url" style="width: 250px; height: 250px" />
+        <p>{{ adds.productName }}&nbsp; Rs.{{ adds.cost }}</p>
+      </div>
+    </div>
     <div v-for="(posts, index) in list" :key="index">
+      <!-- {{ adsList }} -->
       <!-- <p>{{ posts.answerEntity.answerID }}</p> -->
       <div class="main">
         <div class="sub">
