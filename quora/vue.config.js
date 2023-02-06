@@ -28,6 +28,11 @@ module.exports = defineConfig({
         changeOrigin: true,
         pathRewrite: { "^/api": "" },
       },
+      "^/ads": {
+        target: "http://10.20.5.47:8080",
+        changeOrigin: true,
+        // pathRewrite: { "^/api": "" },
+      },
     },
   },
 });

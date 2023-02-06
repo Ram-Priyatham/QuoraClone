@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- {{ list }} -->
+    {{ adsList }}
     <div v-for="(posts, index) in list" :key="index">
       <!-- <p>{{ posts.answerEntity.answerID }}</p> -->
       <div class="main">
@@ -113,6 +114,7 @@ export default {
       activeUpVote: false,
       activeDownVote: false,
       ansId: "",
+      adsList: [],
     };
   },
   computed: {
@@ -120,12 +122,29 @@ export default {
       return localStorage.getItem("email");
     },
   },
+  // async created() {
+  //   await axios
+  //     .get(`/api/question/getPostsbyUserId/${this.usrId}`)
+  //     .then((res) => {
+  //       this.list = res.data;
+  //     });
+  //   // console.log(this.list);
+  //   // console.log(JSON.stringify(this.list));
+  // },
   async created() {
-    await axios
+    const responseOne = await axios
       .get(`/api/question/getPostsbyUserId/${this.usrId}`)
       .then((res) => {
         this.list = res.data;
       });
+    console.log(responseOne);
+    const responseTwo = await axios
+      .get("ads/sendAds/" + localStorage.getItem("email"))
+      .then((res) => {
+        this.adsList = res.data;
+      });
+    // this.adsList = responseTwo.data;
+    console.log(responseTwo);
     // console.log(this.list);
     // console.log(JSON.stringify(this.list));
   },
